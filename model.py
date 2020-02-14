@@ -16,7 +16,8 @@ import time
 #Extracting the data from the spreadsheet
 lines = []
 #print("Loading data...")
-with open('data/driving_log.csv') as csvfile:
+#with open('data/driving_log.csv') as csvfile:
+with open('/opt/carnd_p3/data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     next(reader, None) #this is necessary to skip the first record as it contains the headings
 
@@ -59,19 +60,25 @@ def generator(samples, batch_size=32):
                     #aids in recovery 
                     if camera == 'center':
                         #print(batch_sample[0])
-                        path = 'data/IMG/'+batch_sample[0].split('/')[-1]
+                        
+                        path = '/opt/carnd_p3/data/IMG/'+batch_sample[0].split('/')[-1]
+                        #path = 'data/IMG/'+batch_sample[0].split('/')[-1]
                         #steering_angle = float(batch_sample[3])
                         steering_angle += 0        
                     elif camera == 'left':
                         #print(batch_sample[1])
-                        path = 'data/IMG/'+batch_sample[1].split('/')[-1]
+                        path = '/opt/carnd_p3/data/IMG/'+batch_sample[1].split('/')[-1]
+
+                        #path = 'data/IMG/'+batch_sample[1].split('/')[-1]
                         #steering_angle = float(batch_sample[3])
-                        steering_angle += 0.25
+                        steering_angle += 0.2
                     elif camera == 'right':
                         #print(batch_sample[2])
-                        path = 'data/IMG/'+batch_sample[2].split('/')[-1]
+                        path = '/opt/carnd_p3/data/IMG/'+batch_sample[2].split('/')[-1]
+                            
+                        #path = 'data/IMG/'+batch_sample[2].split('/')[-1]
                         #steering_angle = float(batch_sample[3])
-                        steering_angle -= 0.25
+                        steering_angle -= 0.2
                     
                     #source_path = batch_sample[0]
                     #img_name = source_path.split('/')[-1]
@@ -137,7 +144,7 @@ model.compile(loss="mse", optimizer="adam")
 History_Model = model.fit_generator(train_generator, steps_per_epoch=ceil(len(train_samples)/batch_size), validation_data=validation_generator, validation_steps=ceil(len(validation_samples)/batch_size), epochs=5, verbose=1)
 
 ### print the keys contained in the history object
-print(History_Model.history.keys())
+#print(History_Model.history.keys())
 
 ### plot the training and validation loss for each epoch
 plt.plot(History_Model.history['loss'])
@@ -146,9 +153,9 @@ plt.title('model mean squared error loss')
 plt.ylabel('mean squared error loss')
 plt.xlabel('epoch')
 plt.legend(['training set', 'validation set'], loc='upper right')
-plt.show()
+#plt.show()
 
 print("Read date in %0.2f seconds"%(time.time() - startTime),flush=True)
 
-model.save('model.h5')
-print('model saved as model.h5')
+model.save('model_2.h5')
+print('model saved as model_2.h5')
