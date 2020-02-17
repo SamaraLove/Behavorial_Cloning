@@ -1,4 +1,4 @@
-**Behavioral Cloning Project**
+#Behavioral Cloning Project#
 Self Driving Car Udacity Nanodegree
 
 The goals / steps of this project are the following:
